@@ -1,0 +1,12 @@
+name: 'ibm'
+attributes:
+    beta: 0.999
+traffic_matrix:
+    num_matrices: 1
+    tm_index: 0
+data: 
+    cap_file: '../_data/ibm/ibm_capa.tab'
+    tm_file: '../_data/ibm/ibm_traffic.tab'
+    tunnel_file: '../_data/ibm/ibm_tunnel.tab'
+    scenario_file: '../_data/ibm/ibm_scenario.tab'
+    all_scenario_file: '../_data/ibm/ibm_scenario.tab'

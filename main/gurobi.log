@@ -20,3 +20,31 @@ Iteration    Objective       Primal Inf.    Dual Inf.      Time
 
 Solved in 7 iterations and 0.00 seconds
 Optimal objective  5.149000000e-01
+
+Gurobi 8.0.1 (linux64, Python) logging started Tue Oct  5 14:31:44 2021
+
+Changed value of parameter Threads to 4
+   Prev: 0  Min: 0  Max: 1024  Default: 0
+Optimize a model with 76347 rows, 39038 columns and 236818 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-03, 2e+04]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+05, 1e+05]
+  RHS range        [1e+00, 1e+00]
+
+Concurrent LP optimizer: dual simplex and barrier
+Showing barrier log only...
+
+Presolve removed 38925 rows and 38082 columns
+Presolve time: 0.18s
+Presolved: 37422 rows, 956 columns, 158696 nonzeros
+
+Ordering time: 5.14s
+
+Barrier performed 0 iterations in 5.68 seconds
+Barrier solve interrupted - model solved by another algorithm
+
+
+Solved with dual simplex
+Solved in 1697 iterations and 5.68 seconds
+Optimal objective  8.023612307e-01

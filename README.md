@@ -100,4 +100,4 @@ there are 2 physical tunnels from 0 to 1: [0-1] and [0-2,2-1], and 2 physical tu
 
 ### scenario file
 
-(Not finished)
+TODO: format for scenario file
