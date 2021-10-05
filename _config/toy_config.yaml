@@ -1,0 +1,12 @@
+name: 'toy' # Example in the paper
+attributes:
+    beta: 0.99
+traffic_matrix:
+    num_matrices: 1
+    tm_index: 0
+data: 
+    cap_file: '../_data/toy_3_node/toy_flow_capa.tab'
+    tm_file: '../_data/toy_3_node/toy_flow_traffic.tab'
+    tunnel_file: '../_data/toy_3_node/toy_flow_tunnel.tab'
+    scenario_file: '../_data/toy_3_node/toy_flow_scenarios.tab'
+    all_scenario_file: '../_data/toy_3_node/toy_flow_scenarios.tab'
