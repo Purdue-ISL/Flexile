@@ -42,7 +42,7 @@ For example in ./_config/toy_config.yaml:
 ```bash
 name: 'toy'                   # Example in the paper
 attributes:
-    beta: 0.99                # Target Availbility   
+    beta: 0.99                # Target Availbility
 traffic_matrix:
     num_matrices: 1           # Number of traffic matrices in the traffic file
     tm_index: 0               # Traffic matrix index to be used
@@ -51,7 +51,7 @@ data:
     tm_file: '../_data/toy/toy_traffic.tab'                # Traffic matrix file path
     tunnel_file: '../_data/toy/toy_tunnel.tab'             # Tunnel file path
     scenario_file: '../_data/toy/toy_scenarios.tab'        # Scenario file for designing
-    all_scenario_file: '../_data/toy/toy_scenarios.tab     # Scenario file for post analysis
+    all_scenario_file: '../_data/toy/toy_scenarios.tab'    # Scenario file for post analysis
 ```
 
 Note that even though in traffic matrix file, multiple matrices may be provided, only one traffic matrix will be used for one experiment. "tm_index" specifies that particular traffic matrix. See traffic matrix file for more details. 

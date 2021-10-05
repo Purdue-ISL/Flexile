@@ -1,12 +1,12 @@
-name: 'toy' # Example in the paper
+name: 'toy'                   # Example in the paper
 attributes:
-    beta: 0.99
+    beta: 0.99                # Target Availbility
 traffic_matrix:
-    num_matrices: 1
-    tm_index: 0
+    num_matrices: 1           # Number of traffic matrices in the traffic file
+    tm_index: 0               # Traffic matrix index to be used
 data: 
-    cap_file: '../_data/toy_3_node/toy_flow_capa.tab'
-    tm_file: '../_data/toy_3_node/toy_flow_traffic.tab'
-    tunnel_file: '../_data/toy_3_node/toy_flow_tunnel.tab'
-    scenario_file: '../_data/toy_3_node/toy_flow_scenarios.tab'
-    all_scenario_file: '../_data/toy_3_node/toy_flow_scenarios.tab'
+    cap_file: '../_data/toy/toy_capa.tab'                  # Capacity file path
+    tm_file: '../_data/toy/toy_traffic.tab'                # Traffic matrix file path
+    tunnel_file: '../_data/toy/toy_tunnel.tab'             # Tunnel file path
+    scenario_file: '../_data/toy/toy_scenarios.tab'        # Scenario file for designing
+    all_scenario_file: '../_data/toy/toy_scenarios.tab'    # Scenario file for post analysis
