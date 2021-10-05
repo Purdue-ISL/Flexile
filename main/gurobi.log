@@ -1,0 +1,22 @@
+
+Gurobi 8.0.1 (linux64, Python) logging started Tue Oct  5 14:21:31 2021
+
+Warning for adding constraints: zero or small (< 1e-13) coefficients, ignored
+Changed value of parameter Threads to 4
+   Prev: 0  Min: 0  Max: 1024  Default: 0
+Optimize a model with 52 rows, 33 columns and 109 nonzeros
+Coefficient statistics:
+  Matrix range     [1e-04, 1e+02]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+05, 1e+05]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 36 rows and 21 columns
+Presolve time: 0.00s
+Presolved: 16 rows, 12 columns, 42 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    0.0000000e+00   1.000000e+01   0.000000e+00      0s
+       7    5.1490000e-01   0.000000e+00   0.000000e+00      0s
+
+Solved in 7 iterations and 0.00 seconds
+Optimal objective  5.149000000e-01
