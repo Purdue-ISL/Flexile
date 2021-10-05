@@ -12,7 +12,7 @@ from collections import defaultdict
 import logging
 
 def prepare_data(
-    cap_file, tm_file, tm_index, tunnel_file, scenario_file, all_scenario_file):
+    cap_file, tm_file, tm_index, tunnel_file, scenario_file):
 
   # Index, Edge, Capacity definition
   nodes_set = set()
@@ -104,16 +104,6 @@ def prepare_data(
     failed_edge_set[num_scenario].add((e1, e2))
   num_scenario += 1
 
-  # All Scenario calculation
-  all_probability = 0
-  logging.debug("all scenario_file: %s" % all_scenario_file)
-  with open(all_scenario_file) as fin:
-    for line in fin:
-      if 'edge' not in line:
-        unpack = line.strip().split()
-        edge_list, p = unpack
-        all_probability = all_probability + float(p)
-
   logging.debug("tcap: %s" % cap)
   logging.debug("demand: %s" % demand)
   logging.debug("arcs: %s" % arcs)
@@ -132,7 +122,7 @@ def prepare_data(
           "atunnels": atunnels, "atraverse": atraverse, 
           "atunnel_edge_set": atunnel_edge_set, "anum_tunnel": anum_tunnel,
           "num_scenario": num_scenario, "failed_edge_set": failed_edge_set,
-          "s_probability": s_probability, "all_probability": all_probability}
+          "s_probability": s_probability}
 
 def create_base_model(beta, data):
   # Parameters
@@ -148,7 +138,6 @@ def create_base_model(beta, data):
   num_scenario = data['num_scenario']
   failed_edge_set = data['failed_edge_set']
   s_probability = data['s_probability']
-  all_probability = data['all_probability']
   data['beta'] = beta
 
   y = {}
@@ -217,7 +206,7 @@ def create_base_model(beta, data):
   m.update()
   return m
 
-def post_analysis(x, all_scenario_file, data):
+def post_analysis(x, scenario_file, data):
   eps = 0.000000001
   sd_pairs = data['sd_pairs']
   demand = data['demand']
@@ -230,7 +219,7 @@ def post_analysis(x, all_scenario_file, data):
   loss = {}
   for i, j in sd_pairs:
     loss[i,j] = []
-  with open(all_scenario_file) as fin:
+  with open(scenario_file) as fin:
     for line in fin:
       if 'edge' not in line:
         unpack = line.strip().split()
@@ -279,7 +268,7 @@ def post_analysis(x, all_scenario_file, data):
     logging.info("Loss level: %s%%, Availability: %s%%" % (100, 100))
     return res
 
-def compute_pct_loss(base_model, all_scenario_file, data):
+def compute_pct_loss(base_model, scenario_file, data):
   m = base_model.copy()
 
   sd_pairs = data['sd_pairs']
@@ -308,8 +297,9 @@ def compute_pct_loss(base_model, all_scenario_file, data):
   print "alpha:"
   print alpha.X
 
-  pa = post_analysis(x, all_scenario_file, data)
+  pa = post_analysis(x, scenario_file, data)
 
   if m.Status == GRB.OPTIMAL or m.Status == GRB.SUBOPTIMAL:
     return pa, m.Runtime
   return None, None
+

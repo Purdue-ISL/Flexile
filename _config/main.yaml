@@ -1,4 +1,3 @@
 main:
     log_level: 'INFO'
-    output: 'output.txt'     # Output path
     scheme: 'Teavar'

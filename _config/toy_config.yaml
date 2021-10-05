@@ -8,5 +8,4 @@ data:
     cap_file: '../_data/toy/toy_capa.tab'                  # Capacity file path
     tm_file: '../_data/toy/toy_traffic.tab'                # Traffic matrix file path
     tunnel_file: '../_data/toy/toy_tunnel.tab'             # Tunnel file path
-    scenario_file: '../_data/toy/toy_scenarios.tab'        # Scenario file for designing
-    all_scenario_file: '../_data/toy/toy_scenarios.tab'    # Scenario file for post analysis
+    scenario_file: '../_data/toy/toy_scenarios.tab'        # Scenario file path
