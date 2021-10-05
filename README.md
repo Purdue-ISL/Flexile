@@ -8,7 +8,7 @@ Execute ./main/run.py with a main configuration file and a topology configuratio
 
 ```bash
 cd ./main
-python run.py --main_config ../_config/main.yaml --topo_config ../_config/b4_config.yaml
+python run.py --main_config ../_config/main.yaml --topo_config ../_config/toy_config.yaml
 ```
 
 The main configuration file specifies the scheme. The topology configuration file specifies the topology information including the capacity file, the traffic file and the tunnel file. See ./_config/main.yaml and ./_config/b4_config.yaml for more detailed format.
@@ -24,7 +24,6 @@ The main configuration file specifies the scheme. For example in pcf/_config/mai
 ```bash
 main:
     log_level: 'INFO'
-    #output: 'output.txt'     # Output path
     scheme: 'Teavar'
 ```
 
