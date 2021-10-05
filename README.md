@@ -13,7 +13,7 @@ python run.py --main_config ../_config/main.yaml --topo_config ../_config/toy_co
 
 The main configuration file specifies the scheme. The topology configuration file specifies the topology information including the capacity file, the traffic file and the tunnel file. See ./_config/main.yaml and ./_config/b4_config.yaml for more detailed format.
 
-Currently support schemes (updating): Teavar
+Currently support schemes (updating): Teavar, Smore, Smore_connected
 
 ## Configuration file and data file
 
@@ -34,7 +34,7 @@ The topology configuration file specifies
 1. Beta: target availability
 2. Total number of traffic matrices in the traffic matrix file
 3. The index of traffic matrix to be used
-4. File paths of capacity file, traffic matrix file, tunnel file, scenario files for designing and post anlaysis.
+4. File paths of capacity file, traffic matrix file, tunnel file and scenario file.
 
 For example in ./_config/toy_config.yaml:
 
@@ -50,8 +50,7 @@ data:
     cap_file: '../_data/toy/toy_capa.tab'                  # Capacity file path
     tm_file: '../_data/toy/toy_traffic.tab'                # Traffic matrix file path
     tunnel_file: '../_data/toy/toy_tunnel.tab'             # Tunnel file path
-    scenario_file: '../_data/toy/toy_scenarios.tab'        # Scenario file for designing
-    all_scenario_file: '../_data/toy/toy_scenarios.tab'    # Scenario file for post analysis
+    scenario_file: '../_data/toy/toy_scenarios.tab'        # Scenario file path
 ```
 
 Note that even though in traffic matrix file, multiple matrices may be provided, only one traffic matrix will be used for one experiment. "tm_index" specifies that particular traffic matrix. See traffic matrix file for more details. 
