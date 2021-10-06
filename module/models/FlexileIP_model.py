@@ -1,5 +1,5 @@
 """
-Teavar_model.py
+FlexileIP_model.py
 Run with python2.7+ (but not python3)
 This file reads topology, traffic matrix, tunnel, and implements the Flexile IP model in gurobi format.
 """
