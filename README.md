@@ -101,4 +101,17 @@ there are 2 physical tunnels from 0 to 1: [0-1] and [0-2,2-1], and 2 physical tu
 
 ### scenario file
 
-TODO: format for scenario file
+In the scenario file, each line specifies a failure scnario. A failure scenario consists of set of failed links and failure probability. For example in ./_data/toy/toy_scenarios.tab,
+
+```bash
+no 0.970299
+0-1,1-0 0.009801
+0-2,2-0 0.009801
+1-2,2-1 0.009801
+0-1,1-0,0-2,2-0 0.000099
+0-1,1-0,1-2,2-1 0.000099
+0-2,2-0,1-2,2-1 0.000099	
+0-1,1-0,0-2,2-0,1-2,2-1 0.000001
+```
+
+the first line specifies the normal case(no link fails) with 97.0299% probability and the second line says that the failure case where only 0-1 fails has probability of 0.9801%.
