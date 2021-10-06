@@ -114,4 +114,4 @@ no 0.970299
 0-1,1-0,0-2,2-0,1-2,2-1 0.000001
 ```
 
-the first line specifies the normal case(no link fails) with 97.0299% probability and the second line says that the failure case where only 0-1 fails has probability of 0.9801%.
+the first line specifies the normal case(no link fails) with 97.0299% probability and the second line says that the failure case where only 0-1 fails has probability of 0.9801%. Note that it is NOT necessary to list all failure scenarios.
