@@ -133,7 +133,10 @@ class FlexileBender_Solver(object):
     self.tunnel_file = self.topo_config['data']['tunnel_file']
     self.scenario_file = self.topo_config['data']['scenario_file']
     self.beta = self.topo_config['attributes']['beta']
-    self.step = self.topo_config['attributes']['step']
+    if 'step' in self.topo_config['attributes']:
+      self.step = self.topo_config['attributes']['step']
+    else:
+      self.step = 1000
     self.tm_index = self.topo_config['traffic_matrix']['tm_index']
 
   def compute_pct_loss(self):
