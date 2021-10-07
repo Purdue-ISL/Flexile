@@ -26,7 +26,7 @@ The main configuration file specifies the scheme. For example in pcf/_config/mai
 ```bash
 main:
     log_level: 'INFO'
-    scheme: 'Teavar'
+    scheme: 'Teavar'  # Options: 'Teavar', 'Smore', 'Smore_connected', 'FlexileIP', 'FlexileBender'
 ```
 
 ### topology configuration
