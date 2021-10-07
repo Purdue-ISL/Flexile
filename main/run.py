@@ -59,9 +59,9 @@ def _compute(main_config, topo_config):
   scheme = main_config['scheme']
   solver = None
   logger = logging.getLogger('main')
-  if 'output' not in main_config:
-    main_config['output'] = 'output.txt'
-    logger.warning('No output path provided. Use output.txt as default.')
+  #if 'output' not in main_config:
+  #  main_config['output'] = 'output.txt'
+  #  logger.warning('No output path provided. Use output.txt as default.')
   if scheme == 'Teavar':
     solver = solvers.Teavar_Solver(
       main_config=main_config,
