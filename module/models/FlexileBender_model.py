@@ -1,7 +1,7 @@
 """
 FlexileBender_model.py
 Run with python2.7+ (but not python3)
-This file reads topology, traffic matrix, tunnel, and implements the Flexile IP model in gurobi format.
+This file reads topology, traffic matrix, tunnel, and implements the Flexile Bender model in gurobi format.
 """
 
 import sys
