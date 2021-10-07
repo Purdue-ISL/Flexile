@@ -1,6 +1,7 @@
 name: 'ibm'
 attributes:
     beta: 0.999
+    step: 2000
 traffic_matrix:
     num_matrices: 1
     tm_index: 0

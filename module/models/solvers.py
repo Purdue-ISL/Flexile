@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+ #!/usr/bin/env python
 
 """
 
@@ -19,6 +19,7 @@ import logging
 import module.models.Teavar_model as Teavar_model
 import module.models.Smore_model as Smore_model
 import module.models.FlexileIP_model as FlexileIP_model
+import module.models.FlexileBender_model as FlexileBender_model
 
 ####
 #### Authorship information
@@ -114,3 +115,31 @@ class FlexileIP_Solver(object):
           self.tunnel_file, self.scenario_file)
     self.base_model = FlexileIP_model.create_base_model(self.beta, self.data)
     return FlexileIP_model.compute_pct_loss(self.base_model, self.scenario_file, self.data)
+
+class FlexileBender_Solver(object):
+  def __init__(self, _sentinel=None, main_config=None, topo_config=None,
+               solver_config=None):
+    self.main_config = main_config
+    self.topo_config = topo_config
+    self.solver_config = solver_config
+    self.logger = logging.getLogger("FlexileBenderSolver")
+    self.base_model = None
+    self._parse_configs()
+
+  def _parse_configs(self):
+    assert self.topo_config is not None, "No topo config found!"
+    self.cap_file = self.topo_config['data']['cap_file']
+    self.tm_file = self.topo_config['data']['tm_file']
+    self.tunnel_file = self.topo_config['data']['tunnel_file']
+    self.scenario_file = self.topo_config['data']['scenario_file']
+    self.beta = self.topo_config['attributes']['beta']
+    self.step = self.topo_config['attributes']['step']
+    self.tm_index = self.topo_config['traffic_matrix']['tm_index']
+
+  def compute_pct_loss(self):
+    if self.base_model == None:
+      self.logger.debug("No base model. Creating base model")
+      self.data = FlexileBender_model.prepare_data(
+          self.cap_file, self.tm_file, self.tm_index,
+          self.tunnel_file, self.scenario_file)
+    return FlexileBender_model.benders_algorithm(self.beta, self.data, self.scenario_file, self.step)
