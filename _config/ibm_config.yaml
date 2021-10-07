@@ -1,7 +1,7 @@
 name: 'ibm'
 attributes:
     beta: 0.999
-    step: 2000
+    step: 2000     # Used in FlexileBender model. Constraint the changes of critical scenarios from iteration to iteration.
 traffic_matrix:
     num_matrices: 1
     tm_index: 0
