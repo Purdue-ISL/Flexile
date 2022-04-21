@@ -62,6 +62,7 @@ def _compute(main_config, topo_config):
   #if 'output' not in main_config:
   #  main_config['output'] = 'output.txt'
   #  logger.warning('No output path provided. Use output.txt as default.')
+  is_two_class = False
   if scheme == 'Teavar':
     solver = solvers.Teavar_Solver(
       main_config=main_config,
@@ -89,11 +90,27 @@ def _compute(main_config, topo_config):
       main_config=main_config,
       topo_config=topo_config,
       solver_config=None)
+  if scheme == 'SwanThroughput':
+    is_two_class = True
+    solver = solvers.SwanThroughput_Solver(
+      main_config=main_config,
+      topo_config=topo_config,
+      solver_config=None)
+  if scheme == 'SwanMaxmin':
+    is_two_class = True
+    solver = solvers.SwanMaxmin_Solver(
+      main_config=main_config,
+      topo_config=topo_config,
+      solver_config=None)
   if solver is None:   
     logger.error('WRONG scheme!')
     return
-  pct_loss, solving_time = solver.compute_pct_loss()
-  logger.info('PctLoss: %s, solving time: %s seconds' % (pct_loss, solving_time))
+  if is_two_class:
+    pct_loss_low, pct_loss_high, solving_time = solver.compute_pct_loss()
+    logger.info('PctLoss low: %s %%, PctLoss high: %s %%, solving time: %s seconds' % (pct_loss_low * 100, pct_loss_high * 100, solving_time))
+  else:
+    pct_loss, solving_time = solver.compute_pct_loss()
+    logger.info('PctLoss: %s %%, solving time: %s seconds' % (pct_loss * 100, solving_time))
   #logger.info('Tunnel reservation is saved in %s' % main_config['output'])
 
 def _main(args, configs):

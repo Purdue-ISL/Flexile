@@ -1,0 +1,15 @@
+name: 'ibm'
+attributes:
+    scale_low: 2
+    beta_low: 0.999
+    beta_high: 0.99
+    step: 2000     # Used in FlexileBender model. Constraint the changes of critical scenarios from iteration to iteration.
+traffic_matrix:
+    num_matrices: 2
+    tm_index_low: 0
+    tm_index_high: 1
+data: 
+    cap_file: '../_data/ibm/ibm_capa.tab'
+    tm_file: '../_data/ibm/ibm_traffic_split.tab'
+    tunnel_file: '../_data/ibm/ibm_ksp.tab'
+    scenario_file: '../_data/ibm/ibm_scenario.tab'

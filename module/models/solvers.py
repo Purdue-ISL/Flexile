@@ -20,6 +20,8 @@ import module.models.Teavar_model as Teavar_model
 import module.models.Smore_model as Smore_model
 import module.models.FlexileIP_model as FlexileIP_model
 import module.models.FlexileBender_model as FlexileBender_model
+import module.models.SwanThroughput_model as SwanThroughput_model
+import module.models.SwanMaxmin_model as SwanMaxmin_model
 
 ####
 #### Authorship information
@@ -146,3 +148,59 @@ class FlexileBender_Solver(object):
           self.cap_file, self.tm_file, self.tm_index,
           self.tunnel_file, self.scenario_file)
     return FlexileBender_model.benders_algorithm(self.beta, self.data, self.scenario_file, self.step)
+
+class SwanThroughput_Solver(object):
+  def __init__(self, _sentinel=None, main_config=None, topo_config=None,
+               solver_config=None):
+    self.main_config = main_config
+    self.topo_config = topo_config
+    self.solver_config = solver_config
+    self.logger = logging.getLogger("SwanThroughputSolver")
+    self.base_model = None
+    self._parse_configs()
+
+  def _parse_configs(self):
+    assert self.topo_config is not None, "No topo config found!"
+    self.cap_file = self.topo_config['data']['cap_file']
+    self.tm_file = self.topo_config['data']['tm_file']
+    self.tunnel_file = self.topo_config['data']['tunnel_file']
+    self.scenario_file = self.topo_config['data']['scenario_file']
+    self.scale_low = self.topo_config['attributes']['scale_low']
+    self.beta_low = self.topo_config['attributes']['beta_low']
+    self.beta_high = self.topo_config['attributes']['beta_high']
+    self.tm_index_low = self.topo_config['traffic_matrix']['tm_index_low']
+    self.tm_index_high = self.topo_config['traffic_matrix']['tm_index_high']
+
+  def compute_pct_loss(self):
+    self.data = SwanThroughput_model.prepare_data(
+          self.cap_file, self.tm_file, self.tm_index_low, self.tm_index_high,
+          self.tunnel_file, self.scenario_file, self.scale_low)
+    return SwanThroughput_model.compute_pct_loss(self.data, self.beta_low, self.beta_high)
+
+class SwanMaxmin_Solver(object):
+  def __init__(self, _sentinel=None, main_config=None, topo_config=None,
+               solver_config=None):
+    self.main_config = main_config
+    self.topo_config = topo_config
+    self.solver_config = solver_config
+    self.logger = logging.getLogger("SwanThroughputSolver")
+    self.base_model = None
+    self._parse_configs()
+
+  def _parse_configs(self):
+    assert self.topo_config is not None, "No topo config found!"
+    self.cap_file = self.topo_config['data']['cap_file']
+    self.tm_file = self.topo_config['data']['tm_file']
+    self.tunnel_file = self.topo_config['data']['tunnel_file']
+    self.scenario_file = self.topo_config['data']['scenario_file']
+    self.scale_low = self.topo_config['attributes']['scale_low']
+    self.beta_low = self.topo_config['attributes']['beta_low']
+    self.beta_high = self.topo_config['attributes']['beta_high']
+    self.tm_index_low = self.topo_config['traffic_matrix']['tm_index_low']
+    self.tm_index_high = self.topo_config['traffic_matrix']['tm_index_high']
+
+  def compute_pct_loss(self):
+    self.data = SwanMaxmin_model.prepare_data(
+          self.cap_file, self.tm_file, self.tm_index_low, self.tm_index_high,
+          self.tunnel_file, self.scenario_file, self.scale_low)
+    return SwanMaxmin_model.compute_pct_loss(self.data, self.beta_low, self.beta_high)
