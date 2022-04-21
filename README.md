@@ -1,5 +1,5 @@
 # Flexile
-
+ 
 Design routing schemes to minimize loss for a certain availability.
 
 Required library: [gurobi](https://www.gurobi.com/), yaml. Please add local gurobi path in ./main/run.py if needed.
@@ -26,7 +26,7 @@ The main configuration file specifies the scheme. For example in pcf/_config/mai
 ```bash
 main:
     log_level: 'INFO'
-    scheme: 'Teavar'  # Options: 'Teavar', 'Smore', 'Smore_connected', 'FlexileIP', 'FlexileBender'
+    scheme: 'Teavar'  # Options: 'Teavar', 'Smore', 'Smore_connected', 'FlexileIP', 'FlexileBender', 'Swan_Throughput'
 ```
 
 ### topology configuration
