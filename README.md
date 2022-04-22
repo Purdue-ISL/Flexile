@@ -15,7 +15,7 @@ python run.py --main_config ../_config/main.yaml --topo_config ../_config/toy_co
 
 The main configuration file specifies the scheme. The topology configuration file specifies the topology information including the capacity file, the traffic file and the tunnel file. See ./_config/main.yaml and ./_config/b4_config.yaml for more detailed format.
 
-Currently supported schemes (updating): Teavar, Smore, Smore_connected, FlexileIP, FlexileBender
+Currently supported schemes (updating): Teavar, Smore, Smore_connected, FlexileIP, FlexileBender, CvarFlowSt, CvarFlowAd, SwanThroughput, SwanMaxmin, FlexileIP2Class, FlexileBender2Class
 
 ## Configuration file and data file
 
@@ -26,7 +26,7 @@ The main configuration file specifies the scheme. For example in pcf/_config/mai
 ```bash
 main:
     log_level: 'INFO'
-    scheme: 'Teavar'  # Options: 'Teavar', 'Smore', 'Smore_connected', 'FlexileIP', 'FlexileBender', 'Swan_Throughput'
+    scheme: 'CvarFlowAd'  # Options: 'Teavar', 'Smore', 'Smore_connected', 'FlexileIP', 'FlexileBender', 'CvarFlowSt', 'CvarFlowAd', 'SwanThroughput', 'SwanMaxmin', 'FlexileBender2Class', 'FlexileIP2Class'
 ```
 
 ### topology configuration
