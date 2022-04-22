@@ -1,3 +1,7 @@
 main:
     log_level: 'INFO'
+<<<<<<< HEAD
+    scheme: 'FlexileIP2Class'  # Options: 'Teavar', 'Smore', 'Smore_connected', 'FlexileIP', 'FlexileBender', 'SwanThroughput', 'SwanMaxmin', 'FlexileBender2Class', 'FlexileIP2Class'
+=======
     scheme: 'Teavar'  # Options: 'Teavar', 'Smore', 'Smore_connected', 'FlexileIP', 'FlexileBender', 'SwanThroughput', 'SwanMaxmin'
+>>>>>>> 6bdc26cf48f6dd0a114d9467bded7de87e896da8

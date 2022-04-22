@@ -102,6 +102,18 @@ def _compute(main_config, topo_config):
       main_config=main_config,
       topo_config=topo_config,
       solver_config=None)
+  if scheme == 'FlexileBender2Class':
+    is_two_class = True
+    solver = solvers.FlexileBender2Class_Solver(
+      main_config=main_config,
+      topo_config=topo_config,
+      solver_config=None)
+  if scheme == 'FlexileIP2Class':
+    is_two_class = True
+    solver = solvers.FlexileIP2Class_Solver(
+      main_config=main_config,
+      topo_config=topo_config,
+      solver_config=None)
   if solver is None:   
     logger.error('WRONG scheme!')
     return
