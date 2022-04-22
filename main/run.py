@@ -68,6 +68,16 @@ def _compute(main_config, topo_config):
       main_config=main_config,
       topo_config=topo_config,
       solver_config=None)  
+  if scheme == 'CvarFlowSt':
+    solver = solvers.CvarFlowSt_Solver(
+      main_config=main_config,
+      topo_config=topo_config,
+      solver_config=None)  
+  if scheme == 'CvarFlowAd':
+    solver = solvers.CvarFlowAd_Solver(
+      main_config=main_config,
+      topo_config=topo_config,
+      solver_config=None)  
   if scheme == 'Smore':
     solver = solvers.Smore_Solver(
       main_config=main_config,
