@@ -1,7 +1,7 @@
 """
-Teavar_model.py
+CvarFlowSt_model.py
 Run with python2.7+ (but not python3)
-This file reads topology, traffic matrix, tunnel, and implements the Teavar model in gurobi format.
+This file reads topology, traffic matrix, tunnel, and implements the CvarFlowSt model in gurobi format.
 """
 
 import sys
@@ -124,6 +124,7 @@ def prepare_data(
           "num_scenario": num_scenario, "failed_edge_set": failed_edge_set,
           "s_probability": s_probability}
 
+
 def create_base_model(beta, data):
   # Parameters
   nodes, arcs = data['nodes'], data['arcs']
@@ -141,7 +142,7 @@ def create_base_model(beta, data):
   data['beta'] = beta
 
   y = {}
-  rest_prob = 1
+  rest_prob = 1 
   for q in range(num_scenario):
     rest_prob = rest_prob - s_probability[q]
     for l in range(anum_tunnel):
@@ -152,31 +153,34 @@ def create_base_model(beta, data):
           break
 
   # Gurobi Solver Model
-  m = Model('Teavar')
+  m = Model('teavar')
 
   # Variable definition
-  x, s, t = {}, {}, {}
+  x, s, t, alpha = {}, {}, {}, {}
   for l in range(anum_tunnel):
     x[l] = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name="x[%s]" % (l))
 
+  for i, j in sd_pairs:
+    alpha[i,j] = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name="alpha[%s,%s]" % (i,j))
+
   for q in range(num_scenario):
-    s[q] = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name="s[%s]" % (q))
     for i, j in sd_pairs:
+      s[i,j,q] = m.addVar(lb=-100000, vtype=GRB.CONTINUOUS, name="s[%s,%s,%s]" % (i,j,q))
       t[i,j,q] = m.addVar(lb=-100000, vtype=GRB.CONTINUOUS, name="t[%s,%s,%s]" % (i,j,q))
 
   cvar = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name="cvar")
-  alpha = m.addVar(lb=0.0, vtype=GRB.CONTINUOUS, name="alpha")
 
   beta_factor = 1 / (1-beta)
   # Objective definition
   m.setObjective(cvar, GRB.MINIMIZE)
 
   # Constraints definition
-  m.addConstr(
-    cvar >= alpha + beta_factor*(quicksum(s_probability[q] * s[q] for q in range(num_scenario))),
-        "cvar"
-  )
-  
+  for i, j in sd_pairs:
+    m.addConstr(
+      cvar >= alpha[i,j] + beta_factor*(quicksum(s_probability[q] * s[i,j,q] for q in range(num_scenario))),
+      "cvar_flow[%s,%s]" % (i,j) 
+    )
+
   for e1, e2 in arcs:
     m.addConstr(
       quicksum(x[l] for l in atraverse[e1, e2]) <= cap[e1, e2],
@@ -186,15 +190,14 @@ def create_base_model(beta, data):
   for i, j in sd_pairs:
     for q in range(num_scenario):
       m.addConstr(
-        s[q] >= t[i,j,q] - alpha,
+        s[i,j,q] >= t[i,j,q] - alpha[i,j],
         "loss_per_scenario[%s,%s,%s]" % (i,j,q) 
       )
+      m.addConstr(
+        s[i,j,q] >= 0,
+        "positve_s[%s,%s,%s]" % (i,j,q) 
+      )
 
-  for q in range(num_scenario):
-    m.addConstr(
-      s[q] >= 0,
-      "positve_s[%s]" % (q) 
-    )
   
   for i, j in sd_pairs:
     for q in range(num_scenario):
@@ -269,37 +272,35 @@ def post_analysis(x, scenario_file, data):
   return res
 
 def compute_pct_loss(base_model, scenario_file, data):
+  eps = 0.0000000001
   m = base_model.copy()
 
   sd_pairs = data['sd_pairs']
   num_scenario = data['num_scenario']
   anum_tunnel = data['anum_tunnel']
+  s_probability = data['s_probability']
   # Variable retrieval
-  alpha = m.getVarByName("alpha")
-  x, s, t = {}, {}, {}
+  x, s, t, alpha = {}, {}, {}, {}
   for l in range(anum_tunnel):
     x[l] = m.getVarByName("x[%s]" % (l))
 
+  for i, j in sd_pairs:
+    alpha[i,j] = m.getVarByName("alpha[%s,%s]" % (i,j))
+
   for q in range(num_scenario):
-    s[q] = m.getVarByName("s[%s]" % (q))
     for i, j in sd_pairs:
+      s[i,j,q] = m.getVarByName("s[%s,%s,%s]" % (i,j,q))
       t[i,j,q] = m.getVarByName("t[%s,%s,%s]" % (i,j,q))
 
   # Solve
   #m.Params.nodemethod = 2
-  #m.Params.method = 1
+  m.Params.method = 2
   #m.Params.Crossover = 0
   m.Params.Threads = 4
   m.optimize()
-
-  logging.info("Runtime: %f seconds" % m.Runtime)
-
-  print "alpha:"
-  print alpha.X
 
   pa = post_analysis(x, scenario_file, data)
 
   if m.Status == GRB.OPTIMAL or m.Status == GRB.SUBOPTIMAL:
     return pa, m.Runtime
   return None, None
-
