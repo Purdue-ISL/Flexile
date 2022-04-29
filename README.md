@@ -69,7 +69,7 @@ Note that even though in traffic matrix file, multiple matrices may be provided,
 The topology configuration file for two traffic class is similar to single traffic class with the following difference:
 
 1. Additionally specifying the scale of low priority traffic
-2. Two avalability targets for two traffic classes
+2. Two availability targets for two traffic classes
 3. Two indexes for two traffic classes
 
 For example in ./_config/ibm_2class_config.yaml:
@@ -78,9 +78,9 @@ For example in ./_config/ibm_2class_config.yaml:
 name: 'ibm'
 attributes:
     scale_low: 2	# Scale of low priority traffic
-    beta_low: 0.999	# Target Availbility for low priority traffic
-    beta_high: 0.99	# Target Availbility for high priority traffic
-    step: 2000     # Used in FlexileBender or FlexileBender2Class model. Constraint the changes of critical scenarios from iteration to iteration.
+    beta_low: 0.999	# Target Availability for low priority traffic
+    beta_high: 0.99	# Target Availability for high priority traffic
+    step: 2000     # Used in FlexileBender or FlexileBender2Class model. Constrain the changes of critical scenarios from iteration to iteration.
 traffic_matrix:
     num_matrices: 2	# Number of traffic matrices in the traffic file
     tm_index_low: 0	# Traffic matrix index to be used for low priority traffic
@@ -138,7 +138,7 @@ If the tunnel file is used for two traffic class, for each source-destination pa
 
 ### scenario file
 
-In the scenario file, each line specifies a failure scnario. A failure scenario consists of set of failed links and failure probability. For example in ./_data/toy/toy_scenarios.tab,
+In the scenario file, each line specifies a failure scenario. A failure scenario consists of set of failed links and failure probability. For example in ./_data/toy/toy_scenarios.tab,
 
 ```bash
 no 0.970299
