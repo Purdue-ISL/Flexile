@@ -17,14 +17,14 @@ The main configuration file specifies the scheme. The topology configuration fil
 
 Currently supported schemes (updating): Teavar, Smore, Smore_connected, FlexileIP, FlexileBender, CvarFlowSt, CvarFlowAd, SwanThroughput, SwanMaxmin, FlexileIP2Class, FlexileBender2Class
 
-Teavar: "TeaVaR: Striking the Right Utilization-Availability Balance in
+1. Teavar: "TeaVaR: Striking the Right Utilization-Availability Balance in
 WAN Traffic Engineering" SIGCOMM 2019
-Smore: "Semi-Oblivious Traffic Engineering: The Road Not Taken" NSDI 2018
-Smore_connected: Like Smore, but only considers connected flows in each scenario
-FlexileIP, FlexileIP2Class: Model (I) in Flexile paper
-FlexileBender, FlexileBender2Class: Refer to sec 3.2 in Flexile paper
-CvarFlowSt, CvarFlowAd: Refer to sec 4 in Flexile paper
-SwanThroughput, SwanMaxmin: "Achieving High Utilization with Software-Driven WAN" SIGCOMM 2013
+2. Smore: "Semi-Oblivious Traffic Engineering: The Road Not Taken" NSDI 2018
+3. Smore_connected: Like Smore, but only considers connected flows in each scenario
+4. FlexileIP, FlexileIP2Class: Model (I) in Flexile paper
+5. FlexileBender, FlexileBender2Class: Refer to sec 3.2 in Flexile paper
+6. CvarFlowSt, CvarFlowAd: Refer to sec 4 in Flexile paper
+7. SwanThroughput, SwanMaxmin: "Achieving High Utilization with Software-Driven WAN" SIGCOMM 2013
 
 ## Configuration file and data file
 
