@@ -17,6 +17,15 @@ The main configuration file specifies the scheme. The topology configuration fil
 
 Currently supported schemes (updating): Teavar, Smore, Smore_connected, FlexileIP, FlexileBender, CvarFlowSt, CvarFlowAd, SwanThroughput, SwanMaxmin, FlexileIP2Class, FlexileBender2Class
 
+Teavar: "TeaVaR: Striking the Right Utilization-Availability Balance in
+WAN Traffic Engineering" SIGCOMM 2019
+Smore: "Semi-Oblivious Traffic Engineering: The Road Not Taken" NSDI 2018
+Smore_connected: Like Smore, but only considers connected flows in each scenario
+FlexileIP, FlexileIP2Class: Model (I) in Flexile paper
+FlexileBender, FlexileBender2Class: Refer to sec 3.2 in Flexile paper
+CvarFlowSt, CvarFlowAd: Refer to sec 4 in Flexile paper
+SwanThroughput, SwanMaxmin: "Achieving High Utilization with Software-Driven WAN" SIGCOMM 2013
+
 ## Configuration file and data file
 
 ### main configuration
@@ -71,7 +80,7 @@ attributes:
     scale_low: 2	# Scale of low priority traffic
     beta_low: 0.999	# Target Availbility for low priority traffic
     beta_high: 0.99	# Target Availbility for high priority traffic
-    step: 2000     # Used in FlexileBender model. Constraint the changes of critical scenarios from iteration to iteration.
+    step: 2000     # Used in FlexileBender or FlexileBender2Class model. Constraint the changes of critical scenarios from iteration to iteration.
 traffic_matrix:
     num_matrices: 2	# Number of traffic matrices in the traffic file
     tm_index_low: 0	# Traffic matrix index to be used for low priority traffic
