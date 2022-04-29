@@ -1,15 +1,15 @@
 name: 'ibm'
 attributes:
-    scale_low: 2
-    beta_low: 0.999
-    beta_high: 0.99
+    scale_low: 2	# Scale of low priority traffic
+    beta_low: 0.999	# Target Availbility for low priority traffic
+    beta_high: 0.99	# Target Availbility for high priority traffic
     step: 2000     # Used in FlexileBender model. Constraint the changes of critical scenarios from iteration to iteration.
 traffic_matrix:
-    num_matrices: 2
-    tm_index_low: 0
-    tm_index_high: 1
+    num_matrices: 2	# Number of traffic matrices in the traffic file
+    tm_index_low: 0	# Traffic matrix index to be used for low priority traffic
+    tm_index_high: 1	# Traffic matrix index to be used for high priority traffic
 data: 
     cap_file: '../_data/ibm/ibm_capa.tab'
-    tm_file: '../_data/ibm/ibm_traffic_split.tab'
-    tunnel_file: '../_data/ibm/ibm_ksp.tab'
+    tm_file: '../_data/ibm/ibm_traffic_2class.tab'
+    tunnel_file: '../_data/ibm/ibm_2class.tab'
     scenario_file: '../_data/ibm/ibm_scenario.tab'

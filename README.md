@@ -31,7 +31,7 @@ main:
 
 ### topology configuration
 
-The topology configuration file specifies 
+The topology configuration file for single traffic class specifies 
 
 1. Beta: target availability
 2. Total number of traffic matrices in the traffic matrix file
@@ -56,6 +56,32 @@ data:
 ```
 
 Note that even though in traffic matrix file, multiple matrices may be provided, only one traffic matrix will be used for one experiment. "tm_index" specifies that particular traffic matrix. See traffic matrix file for more details. 
+
+The topology configuration file for two traffic class is similar to single traffic class with the following difference:
+
+1. Additionally specifying the scale of low priority traffic
+2. Two avalability targets for two traffic classes
+3. Two indexes for two traffic classes
+
+For example in ./_config/ibm_2class_config.yaml:
+
+```bash
+name: 'ibm'
+attributes:
+    scale_low: 2	# Scale of low priority traffic
+    beta_low: 0.999	# Target Availbility for low priority traffic
+    beta_high: 0.99	# Target Availbility for high priority traffic
+    step: 2000     # Used in FlexileBender model. Constraint the changes of critical scenarios from iteration to iteration.
+traffic_matrix:
+    num_matrices: 2	# Number of traffic matrices in the traffic file
+    tm_index_low: 0	# Traffic matrix index to be used for low priority traffic
+    tm_index_high: 1	# Traffic matrix index to be used for high priority traffic
+data: 
+    cap_file: '../_data/ibm/ibm_capa.tab'
+    tm_file: '../_data/ibm/ibm_traffic_2class.tab'
+    tunnel_file: '../_data/ibm/ibm_2class.tab'
+    scenario_file: '../_data/ibm/ibm_scenario.tab'
+```
 
 ### capacity file
 
@@ -98,6 +124,8 @@ s t k edges
 ```
 
 there are 2 physical tunnels from 0 to 1: [0-1] and [0-2,2-1], and 2 physical tunnels from 0 to 2: [0-2] and [0-1,1-2].
+
+If the tunnel file is used for two traffic class, for each source-destination pair, all tunnels can be used to route low-priority traffic while only the first 3 tunnels will be used for high-priority traffic.
 
 ### scenario file
 
