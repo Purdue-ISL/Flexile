@@ -42,10 +42,11 @@ main:
 
 The topology configuration file for single traffic class specifies 
 
-1. Beta: target availability
+1. beta: target availability
 2. Total number of traffic matrices in the traffic matrix file
 3. The index of traffic matrix to be used
 4. File paths of capacity file, traffic matrix file, tunnel file and scenario file.
+5. step: used only in FlexileBender or FlexileBender2Class model to specify the maximum number of critical flows allowed to change in all scenarios. Refer to sec 3.2 about 'Ensure better stability' in Flexile paper. 
 
 For example in ./_config/toy_config.yaml:
 
@@ -57,6 +58,7 @@ attributes:
 traffic_matrix:
     num_matrices: 1           # Number of traffic matrices in the traffic file
     tm_index: 0               # Traffic matrix index to be used
+    step: 2000     # Used in FlexileBender or FlexileBender2Class model. 
 data: 
     cap_file: '../_data/toy/toy_capa.tab'                  # Capacity file path
     tm_file: '../_data/toy/toy_traffic.tab'                # Traffic matrix file path
@@ -151,4 +153,14 @@ no 0.970299
 0-1,1-0,0-2,2-0,1-2,2-1 0.000001
 ```
 
-the first line specifies the normal case(no link fails) with 97.0299% probability and the second line says that the failure case where only 0-1 fails has probability of 0.9801%. Note that it is NOT necessary to list all failure scenarios.
+the first line specifies the normal case(no link fails) with 97.0299% probability and the second line says that the failure case where only 0-1 fails has probability of 0.9801%. Note that it is NOT necessary to list all failure scenarios. However, if the provided set of scenarios cannot cover the availability target, then the models cannot design for the target.
+
+### result
+
+## percentile loss
+
+TODO
+
+## online routing
+
+TODO
