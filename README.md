@@ -73,6 +73,8 @@ The topology configuration file for two traffic class is similar to single traff
 1. Additionally specifying the scale of low priority traffic
 2. Two availability targets for two traffic classes
 3. Two indexes for two traffic classes
+4. 'h_tunnel': see 'tunnel file'
+5. 'output_routing_file': see 'online routing'
 
 For example in ./_config/ibm_2class_config.yaml:
 
@@ -90,7 +92,7 @@ traffic_matrix:
 data: 
     cap_file: '../_data/ibm/ibm_capa.tab'
     tm_file: '../_data/ibm/ibm_traffic_2class.tab'
-    tunnel_file: '../_data/ibm/ibm_2class.tab'
+    tunnel_file: '../_data/ibm/ibm_tunnel_2class.tab'
     scenario_file: '../_data/ibm/ibm_scenario.tab'
 ```
 
@@ -136,7 +138,7 @@ s t k edges
 
 there are 2 physical tunnels from 0 to 1: [0-1] and [0-2,2-1], and 2 physical tunnels from 0 to 2: [0-2] and [0-1,1-2].
 
-If the tunnel file is used for two traffic class, for each source-destination pair, all tunnels can be used to route low-priority traffic while only the first 3 tunnels will be used for high-priority traffic.
+If the tunnel file is used for two traffic class, for each source-destination pair, all tunnels can be used to route low-priority traffic while by default, only the first 3 tunnels will be used for high-priority traffic. You can change this number by adding a field 'h_tunnel' under 'attributes' category in the topology configuration.
 
 ### scenario file
 
@@ -157,10 +159,23 @@ the first line specifies the normal case(no link fails) with 97.0299% probabilit
 
 ### result
 
-## percentile loss
+The result file contains the logging from Gurobi and post analysis of the scheme.
 
-TODO
+#### percentile loss
 
-## online routing
+After solving the model, the result file will print a 'profile' of percentile analysis. At the end, it will show the loss at the given percentile target (beta). See ./main/result.txt for reference.
 
-TODO
+#### online routing
+
+If you are running 'FlexileBender2Class' scheme, a routing file will be generated representing the online routing achieved (refer to sec 3.3 in the Flexile paper). The format of this file is as below.
+
+```bash
+scenario tunnel priority allocation
+0 0 l 0.5
+0 1 l 0.5
+0 0 h 0.5
+0 1 h 0.5
+```
+
+By default, this file will be named as 'routing_file.txt'. You can change the file name and path by adding a field 'output_routing_file' under 'attributes' category in the topology configuration.
+

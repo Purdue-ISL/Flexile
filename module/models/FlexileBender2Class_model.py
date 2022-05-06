@@ -11,9 +11,13 @@ import numpy as np
 from collections import defaultdict
 import logging
 import time
+import Online2Class_model
+
+sys.path.append('../..')
+import module.utils.utils as utils
 
 def prepare_data(
-    cap_file, tm_file, tm_index_low, tm_index_high, tunnel_file, scenario_file, scale_low):
+    cap_file, tm_file, tm_index_low, tm_index_high, tunnel_file, scenario_file, scale_low, h_tunnel):
 
   # Index, Edge, Capacity definition
   split = 1
@@ -87,7 +91,7 @@ def prepare_data(
         unpack = line.strip().split()
         s, t, k, edge_list, leng = unpack
         # whether to consider for lantency-sensitive
-        lt_sensitive = int(k) < 3
+        lt_sensitive = int(k) < h_tunnel
         edge_list = edge_list.split(',')
         for u in range(split):
           atunnel_edge_set[anum_tunnel] = set()
@@ -236,7 +240,7 @@ def post_analysis(x, data, beta, demand, tunnels, pri, z):
   logging.info("Loss level: %s%%, Availability: %s%%" % (100, 100))
   return u
 
-def benders_algorithm(beta_l, beta_h, data, step):
+def benders_algorithm(beta_l, beta_h, data, step, output_routing_file):
   s_probability = data['s_probability']
   failed_edge_set = data['failed_edge_set']
   num_scenario = data['num_scenario']
@@ -372,6 +376,16 @@ def benders_algorithm(beta_l, beta_h, data, step):
         if q not in resolve and q not in changed_set:
           changed_set.append(q)
       total_rt += rt
+    else:
+      l_list, h_list, t_list = [],[],[]
+      loss_data, x1, x2 = {}, {}, {}
+      for q in range(num_scenario):
+        #loss_l, loss_h = worst_loss(data, x, z_, q)
+        x1[q], x2[q], t, loss_l, loss_h, loss_l_list = Online2Class_model.get_online_routing(data, z_, q, loss_per_scen[q])
+        loss_data[q] = loss_l_list
+        l_list.append(loss_l)
+        h_list.append(loss_h)
+      utils.output_routing_2class(output_routing_file, num_scenario, x1, x2)
     logging.info("iteration %s lb = %s, ub = %s." % (iteration, lower_bound, upper_bound))
   logging.info("best loss: %s" % best_loss)
   return u1, u2, total_rt

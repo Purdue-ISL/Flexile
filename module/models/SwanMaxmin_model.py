@@ -12,7 +12,7 @@ from collections import defaultdict
 import logging
 
 def prepare_data(
-    cap_file, tm_file, tm_index_low, tm_index_high, tunnel_file, scenario_file, scale_low):
+    cap_file, tm_file, tm_index_low, tm_index_high, tunnel_file, scenario_file, scale_low, h_tunnel):
 
   # Index, Edge, Capacity definition
 
@@ -96,7 +96,7 @@ def prepare_data(
         leng = float(leng)
         #s, t, k, edge_list = unpack
         # whether to consider for lantency-sensitive
-        lt_sensitive = int(k) < 3
+        lt_sensitive = int(k) < h_tunnel
         edge_list = edge_list.split(',')
         atunnel_edge_set[anum_tunnel] = set()
         atunnels[s,t].add(anum_tunnel)
