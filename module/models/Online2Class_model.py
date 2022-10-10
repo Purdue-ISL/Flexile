@@ -11,7 +11,6 @@ import numpy as np
 from collections import defaultdict
 import logging
 import time
-import Online_models
 
 def get_online_routing(data, z, q, loss):  
   logging.info("generating online routing...")  
