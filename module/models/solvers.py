@@ -249,7 +249,7 @@ class FlexileBender_Solver(object):
       self.data = FlexileBender_model.prepare_data(
           self.cap_file, self.tm_file, self.tm_index,
           self.tunnel_file, self.scenario_file)
-    return FlexileBender_model.benders_algorithm(self.beta, self.data, self.scenario_file, self.step, self.output_routing_file)
+    return FlexileBender_model.benders_algorithm(self.beta, self.data, self.scenario_file, self.step)
 
 class FlexileBender2Class_Solver(object):
   def __init__(self, _sentinel=None, main_config=None, topo_config=None,
