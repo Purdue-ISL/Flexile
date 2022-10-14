@@ -1,5 +1,6 @@
 # Flexile
 [![DOI](https://zenodo.org/badge/413925101.svg)](https://zenodo.org/badge/latestdoi/413925101) 
+
 Design routing schemes to minimize loss for a certain availability.
 
 Required library: [gurobi](https://www.gurobi.com/), yaml. Please add local gurobi path in ./main/run.py if needed.
